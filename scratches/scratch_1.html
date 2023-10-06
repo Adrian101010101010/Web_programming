@@ -2,38 +2,62 @@
 <html>
 <head>
     <title>Моя веб-сторінка</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="scratch.css">
+    <link rel="stylesheet" type="text/css" href="animation.css">
+
 </head>
 <body>
+<script src="button.js"></script>
 <header class="header">
     <div class="container header__container">
         <div class="images-container">
-            <img src="img/Rectangle%2032.png" style=" margin-top: 15px;" alt="logo">
-            <div style="width: 10px;"></div>
-            <img src="img/Rectangle%2033.png" alt="logo">
+            <div class="circle1"></div>
+            <div style="width: 2%;"></div>
+            <div class="circle"></div>
+            <div class="header__distance" style="width: 50px;"></div>
+            <div class="header__nav">
+                <div class="nav-container">
+                   <!-- <button id="menuButton" class="menu-button">☰</button> -->
+                    <ul class="horizontal-menu">
+                        <li class="header__nav-item">
+                            <a class="heaader__nav-link" href="">About</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a class="heaader__nav-link" href="">Help</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a class="heaader__nav-link" href="">Features</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a class="heaader__nav-link" href="">Signup</a>
+                        </li>
+                    </ul>
+                    <div class="menu-dropdown">
+                        <ul class="vertical-menu">
+                            <!-- Тут ви можете розмістити ті самі пункти меню -->
+                            <li class="header__nav-item">
+                                <a class="heaader__nav-link" href="">About</a>
+                            </li>
+                            <li class="header__nav-item">
+                                <a class="heaader__nav-link" href="">Help</a>
+                            </li>
+                            <li class="header__nav-item">
+                                <a class="heaader__nav-link" href="">Features</a>
+                            </li>
+                            <li class="header__nav-item">
+                                <a class="heaader__nav-link" href="">Signup</a>
+                            </li>
+                            <li class="header__nav-item">
+                                <a class="heaader__nav-link" href="">Request Demo</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-        <nav class="header__nav" style="margin-right: 200px;">
-            <ul>
-                <li class="header__nav-item">
-                    <a class="heaader__nav-About" href="">About</a>
-                </li>
-                <li class="header__nav-item">
-                    <a class="heaader__nav-link" href="">Help</a>
-                </li>
-                <li class="header__nav-item">
-                    <a class="heaader__nav-link" href="">Features</a>
-                </li>
-                <li class="header__nav-item">
-                    <a class="heaader__nav-link" href="">Signup</a>
-                </li>
-            </ul>
-        </nav>
-
-        <button class="header__buy-now">
-            <span>Request Demo</span>
-            <img src="img/Vector%2074.png" style=" margin-bottom: 7px;" alt="pointer">
-            <img src="img/Polygon%201.png" style="margin-left: -8px;" alt="pointer">
-        </button>
+        <button id="menuButton" class="menu-button">☰</button>
+        <a class="header__buy-now" href="">Request Demo</a>
     </div>
 
     <div class="container header__1">
@@ -44,13 +68,14 @@
                 tested for security, so you can store<br> your data here
                 safely but not be afraid of<br> being stolen by others.
             </h3>
-
-            <button class="header__Learn__more">Learn more</button>
+            <div style="height: 10%"></div>
+            <a class="header__Learn__more" href="">Learn more</a>
         </div>
 
     </div>
 
 </header>
+<div style="height: 15%;"></div>
 <middle class="middle">
     <div class="container middle__contecst">
         <img src="img/image2.png" alt="img">
@@ -82,11 +107,8 @@
                         the Data Warehoue<br> provides a search engine,<br>
                         which is useful for making it<br> easier to find
                         data effectively<br> saving time.</h3>
-                    <h3>
-                        <span>Learn more</span>
-                        <img src="img/Vector%2074.png" style=" margin-bottom: 7px;" alt="background">
-                        <img src="img/Polygon%201.png" style="margin-left: -8px;" alt="background">
-                    </h3>
+                    <a class="bottom__button__menu" href="">Learn more</a>
+                    <span class="arrow">&#10140;</span>
                 </div>
             </div>
             <div class="container bottom__information__box1">
@@ -96,11 +118,8 @@
                     <h3>Access is given 24 hours a full<br> morning to
                         night and meet<br> again in the morning, giving<br>
                         you comfort when you need<br> data when urgent.</h3>
-                    <h3>
-                        <span>Learn more</span>
-                        <img src="img/Vector%2074.png" style=" margin-bottom: 7px;" alt="background">
-                        <img src="img/Polygon%201.png" style="margin-left: -8px;" alt="background">
-                    </h3>
+                    <a class="bottom__button__menu" href="">Learn more</a>
+                    <span class="arrow">&#10140;</span>
                 </div>
             </div>
         </div>
@@ -111,11 +130,8 @@
                     <h2>Print Out</h2>
                     <h3>Print out service gives you<br> convenience if
                         someday you<br> need print data, just edit it all <br>and just print it.</h3>
-                    <h3>
-                        <span>Learn more</span>
-                        <img src="img/Vector%2074.png" style=" margin-bottom: 7px;" alt="background">
-                        <img src="img/Polygon%201.png" style="margin-left: -8px;" alt="background">
-                    </h3>
+                    <a class="bottom__button__menu" href="">Learn more</a>
+                    <span class="arrow">&#10140;</span>
                 </div>
             </div>
             <div class="container bottom__information__box3">
@@ -125,29 +141,25 @@
                     <h3>Data Security is one of our<br> best facilities.
                         Allows for your<br> files to be safer. The file can<br> be secured with
                         a code or <br>password that you created,<br> so only you can open the file.</h3>
-                    <h3>
-                        <span>Learn more</span>
-                        <img src="img/Vector%2074.png" style=" margin-bottom: 7px;" alt="background">
-                        <img src="img/Polygon%201.png" style="margin-left: -8px;" alt="background">
-                    </h3>
+                    <div class="123456">
+                    <a class="bottom__button__menu" href="">Learn more</a>
+                    <span class="arrow">&#10140;</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </bottom>
 <end class="container end">
-    <div class="rrrrrr">
+    <div class="end__menu">
         <div class="end__title">
             <h2>Try for free!</h2>
             <h3>Get limited 1 week free try our features!</h3>
         </div>
         <div class="end__right">
-            <button class="end__button__left">Learn more</button>
-            <button class="end__button__ridht" style="margin-left: 40px;">
-                <span>Request Demo</span>
-                <img src="img/Vector%2074.png" style=" margin-bottom: 7px;" alt="background">
-                <img src="img/Polygon%201.png" style="margin-left: -8px;" alt="background">
-            </button>
+            <a class="end__button__left" href="">Learn more</a>
+            <a class="end__button__ridht" href="">Request Demo</a>
+
         </div>
     </div>
     <div class="end__end">
