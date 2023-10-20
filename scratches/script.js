@@ -91,7 +91,6 @@ creatButton.addEventListener("click", function () {
 
 
 
-
 sortButton.addEventListener("click", function () {
     isSorted = !isSorted;
     sortButton.style.backgroundColor = isSorted ? "green" : "red";
