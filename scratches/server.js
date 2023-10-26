@@ -25,11 +25,9 @@ db.connect((err) => {
     }
 });
 
-// Обробка запиту від клієнта
 app.post('/createRecord', (req, res) => {
-    const { model, description, value } = req.body; // Отримайте значення model, description і value з req.body
+    const { model, description, value } = req.body;
 
-    // Додайте новий рядок до бази даних зі значеннями model, description і value
     const sql = 'INSERT INTO my_table (model, description, value) VALUES (?, ?, ?)';
     db.query(sql, [model, description, value], (err) => {
         if (err) {
@@ -43,10 +41,9 @@ app.post('/createRecord', (req, res) => {
 });
 
 app.put('/updateRecord/:id', (req, res) => {
-    const id = req.params.id; // Отримайте ідентифікатор із URL
-    const { model, description, value } = req.body; // Отримайте дані для оновлення з req.body
+    const id = req.params.id;
+    const { model, description, value } = req.body;
 
-    // Оновіть запис в базі даних на основі ідентифікатора id
     const sql = 'UPDATE my_table SET model = ?, description = ?, value = ? WHERE id = ?';
     db.query(sql, [model, description, value, id], (err) => {
         if (err) {
@@ -59,6 +56,23 @@ app.put('/updateRecord/:id', (req, res) => {
     });
 });
 
+app.post('/getId', (req, res) => {
+    const { model, description } = req.body;
+
+    const sql = 'SELECT id FROM my_table WHERE model = ? AND description = ?';
+    db.query(sql, [model, description], (err, results) => {
+        if (err) {
+            console.error('Помилка при отриманні id:', err);
+            res.status(500).json({ id: null });
+        } else {
+            if (results.length > 0) {
+                res.status(200).json({ id: results[0].id });
+            } else {
+                res.status(200).json({ id: null });
+            }
+        }
+    });
+});
 
 app.listen(35967, () => {
     console.log('Сервер слухає порт 35967');

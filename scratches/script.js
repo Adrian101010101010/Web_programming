@@ -34,8 +34,7 @@ creatButton.addEventListener("click", function () {
         return;
     }
 
-    // Генеруємо унікальний ідентифікатор для блоку
-    const blueBoxId = Date.now();
+    let blueBoxId = Date.now();
 
     const blueBox = document.createElement("div");
     blueBox.classList.add("blue-box");
@@ -47,26 +46,40 @@ creatButton.addEventListener("click", function () {
     const saveButton = document.createElement("a");
     saveButton.classList.add("save-button");
     saveButton.textContent = "Зберегти";
-    saveButton.style.display = "none"; // Initially hide the "Зберегти" button
+    saveButton.style.display = "none";
 
     editButton.addEventListener("click", function () {
-        // When "Редагувати" is clicked, show the "Зберегти" button
-        textInput1.value = textInput1Value;
-        description.value = descriptionValue;
-        valueDisplay.textContent = valueDisplayValue;
-        saveButton.style.display = "inline";
+        fetch('http://localhost:35967/getId', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ model: textInput1Value, description: descriptionValue }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.id) {
+
+                    blueBoxId = data.id;
+
+                    textInput1.value = textInput1Value;
+                    description.value = descriptionValue;
+                    valueDisplay.textContent = valueDisplayValue;
+                    saveButton.style.display = "inline";
+                }
+            })
+            .catch(error => {
+                console.error('Помилка при отриманні id:', error);
+            });
     });
 
     saveButton.addEventListener("click", function () {
-        // When "Зберегти" is clicked, save the changes and hide the button
         const updatedModel = textInput1.value;
         const updatedDescription = description.value;
         const updatedValue = valueDisplay.textContent;
 
-        // Викликайте функцію оновлення
         updateRecord(blueBoxId, updatedModel, updatedDescription, updatedValue);
 
-        // Оновіть дані на сторінці (якщо потрібно)
         textInput1Value = updatedModel;
         descriptionValue = updatedDescription;
         valueDisplayValue = updatedValue;
@@ -90,28 +103,25 @@ creatButton.addEventListener("click", function () {
         textInput1: textInput1Value,
         description: descriptionValue,
         valueDisplay: valueDisplayValue,
-        id: blueBoxId // Зберіть унікальний ідентифікатор
+        id: blueBoxId
     };
 
     blueBoxesData.push(blueBoxData);
     initialBlueBoxesData.push(blueBoxData);
 
     blueBox.appendChild(editButton);
-    blueBox.appendChild(saveButton); // Add the "Зберегти" button
+    blueBox.appendChild(saveButton);
 
     blueBoxContainer.appendChild(blueBox);
-    //база баних
-    const modelValue = textInput1.value; // Отримайте значення з поля textInput1
+    const modelValue = textInput1.value;
     const descriptionbd = description.value;
     const valueDisplaybd = valueDisplay.textContent;
 
-    // Перевірка, чи поле не є пустим
     if (textInput1Value.trim() === "" || descriptionValue.trim() === "" || valueDisplay.textContent.trim() === "") {
         alert("Усі поля повинні бути заповнені");
         return;
     }
 
-    // Відправка значення на сервер для запису в базу даних
     fetch('http://localhost:35967/createRecord', {
         method: 'POST',
         headers: {
@@ -121,7 +131,7 @@ creatButton.addEventListener("click", function () {
     })
         .then(response => response.text())
         .then(data => {
-            alert(data); // Повідомлення про створення запису
+            alert(data);
         })
         .catch(error => {
             console.error('Помилка:', error);
@@ -137,7 +147,7 @@ creatButton.addEventListener("click", function () {
         })
             .then(response => response.text())
             .then(data => {
-                alert(data); // Повідомлення про успішне оновлення запису
+                alert(data);
             })
             .catch(error => {
                 console.error('Помилка:', error);
