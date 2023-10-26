@@ -74,6 +74,36 @@ app.post('/getId', (req, res) => {
     });
 });
 
+app.get('/getRecords', (req, res) => {
+    const sql = 'SELECT * FROM my_table'; // Замініть 'my_table' на назву вашої таблиці
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Помилка при отриманні записів:', err);
+            res.status(500).json([]);
+        } else {
+            res.status(200).json(results);
+        }
+    });
+});
+
+app.delete('/deleteRecord/:id', (req, res) => {
+    const id = req.params.id;
+
+    const sql = 'DELETE FROM my_table WHERE id = ?';
+    db.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Помилка при видаленні запису:', err);
+            res.status(500).send('Помилка при видаленні запису');
+        } else if (result.affectedRows === 0) {
+            console.log(`Запис з id ${id} не знайдено`);
+            res.status(404).send('Запис не знайдено');
+        } else {
+            console.log(`Запис з id ${id} успішно видалено`);
+            res.status(200).send('Запис успішно видалено');
+        }
+    });
+});
+
 app.listen(35967, () => {
     console.log('Сервер слухає порт 35967');
 });

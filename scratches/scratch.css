@@ -168,7 +168,6 @@
 }
 .save-button{
     height: 20px;
-
     color: #2fff59;
     background: black;
     border-radius: 50px;
@@ -178,4 +177,23 @@
     border-color: #2fff59;
     text-decoration: none;
     box-shadow: 0 0 0 3px #2fff59;
+}
+.delete-button{
+    height: 20px;
+    color: #2fff59;
+    background: black;
+    border-radius: 50px;
+    padding: 10px;
+    margin: 5px;
+    top: 5px;
+    border-color: #2fff59;
+    text-decoration: none;
+    box-shadow: 0 0 0 3px #2fff59;
+}
+#blueBoxContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Відцентровує текст горизонтально */
+    justify-content: center; /* Відцентровує текст вертикально */
+    height: 100vh; /* Заповнює висоту всього вікна */
 }

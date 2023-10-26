@@ -48,6 +48,22 @@ creatButton.addEventListener("click", function () {
     saveButton.textContent = "Зберегти";
     saveButton.style.display = "none";
 
+    const deleteButton = document.createElement("a");
+    deleteButton.classList.add("delete-button");
+    deleteButton.textContent = "Видалити";
+
+    deleteButton.addEventListener("click", function () {
+        deleteRecord(data.id)
+            .then(() => {
+                blueBox.remove(); // Видаляємо blueBox зі сторінки після видалення з бази даних
+            })
+            .catch(error => {
+                console.error('Помилка при видаленні запису:', error);
+            });
+    });
+
+    blueBox.appendChild(deleteButton);
+
     editButton.addEventListener("click", function () {
         fetch('http://localhost:35967/getId', {
             method: 'POST',
@@ -71,6 +87,10 @@ creatButton.addEventListener("click", function () {
             .catch(error => {
                 console.error('Помилка при отриманні id:', error);
             });
+        textInput1.value = textInput1Value;
+        description.value = descriptionValue;
+        valueDisplay.textContent = valueDisplayValue;
+        saveButton.style.display = "inline";
     });
 
     saveButton.addEventListener("click", function () {
@@ -153,6 +173,19 @@ creatButton.addEventListener("click", function () {
                 console.error('Помилка:', error);
             });
     }
+
+    function deleteRecord(id) {
+        return fetch(`http://localhost:35967/deleteRecord/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+            });
+    }
 });
 
 
@@ -223,8 +256,8 @@ const originalBlueBoxContainerLeftElements = [];
 
 searchButton.addEventListener("click", function () {
     const searchText = searchInput.value.toLowerCase();
-    currentSum = 0;
 
+    currentSum = 0; // Очистити поточну суму перед обчисленням
 
     const matchingBoxes = [];
 
@@ -232,13 +265,12 @@ searchButton.addEventListener("click", function () {
         const boxText = item.element.textContent.toLowerCase();
         if (searchText !== "" && boxText.includes(searchText)) {
             matchingBoxes.push(item);
-            currentSum += item.valueDisplay;
+            // Витягуємо числове значення ціни і додаємо до поточної суми
+            currentSum += parseInt(item.valueDisplay, 10);
         }
     });
 
     sum.textContent = currentSum;
-
-
 
     blueBoxContainer.innerHTML = "";
     if (searchText === "") {
@@ -325,3 +357,198 @@ wefweButton.addEventListener("click", function () {
 
 
 
+// Функція для створення blueBox
+function createBlueBox(model, description, value, id) {
+    const blueBox = document.createElement("div");
+    blueBox.classList.add("blue-box");
+
+    const modelElement = document.createElement("span");
+    modelElement.classList.add("model");
+    modelElement.textContent = `модель: ${model}`;
+
+    const descriptionElement = document.createElement("span");
+    descriptionElement.classList.add("description");
+    descriptionElement.textContent = `опис: ${description}`;
+
+    const valueElement = document.createElement("span");
+    valueElement.classList.add("value");
+    valueElement.textContent = `ціна: ${value}`;
+
+    blueBox.appendChild(modelElement);
+    blueBox.appendChild(descriptionElement);
+    blueBox.appendChild(valueElement);
+
+    const initialTextInput1Value = model;
+    const initialDescriptionValue = description;
+    const initialValueDisplayValue = value;
+
+    const editButton = document.createElement("a");
+    editButton.classList.add("edit-button");
+    editButton.textContent = "Редагувати";
+
+    const saveButton = document.createElement("a");
+    saveButton.classList.add("save-button");
+    saveButton.textContent = "Зберегти";
+    saveButton.style.display = "none";
+
+    const deleteButton = document.createElement("a");
+    deleteButton.classList.add("delete-button");
+    deleteButton.textContent = "Видалити";
+
+    deleteButton.addEventListener("click", function () {
+        deleteRecord(id)
+            .then(() => {
+                blueBox.remove(); // Видаляємо blueBox зі сторінки після видалення з бази даних
+            })
+            .catch(error => {
+                console.error('Помилка при видаленні запису:', error);
+            });
+    });
+
+    blueBox.appendChild(deleteButton);
+
+// Встановлюємо обробник на кнопку "Редагувати"
+    editButton.addEventListener("click", function () {
+        // Отримуємо інформацію про поточний запис
+        const textInput1 = document.getElementById("textInput1");
+        const description = document.getElementById("description");
+        const valueDisplay = document.getElementById("valueDisplay");
+
+        // Отримуємо інформацію для редагування з поточного запису
+        const textInput1Value = textInput1.value;
+        const descriptionValue = description.value;
+        const valueDisplayValue = parseInt(valueDisplay.textContent, 10);
+        fetch('http://localhost:35967/getId', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ model: textInput1Value, description: descriptionValue }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.id) {
+
+                    blueBoxId = data.id;
+
+                    textInput1.value = textInput1Value;
+                    description.value = descriptionValue;
+                    valueDisplay.textContent = valueDisplayValue;
+                    saveButton.style.display = "inline";
+                }
+            })
+            .catch(error => {
+                console.error('Помилка при отриманні id:', error);
+            });
+        // Ваша логіка редагування, наприклад, оновлення полів вводу
+        textInput1.value = initialTextInput1Value;
+        description.value = initialDescriptionValue;
+        valueDisplay.textContent = initialValueDisplayValue;
+        let blueBoxId = Date.now();
+        // Збереження інформації про запис, який редагується, в глобальну змінну або десь інде
+        const recordToEdit = {
+            id: blueBoxId,
+            textInput1Value: textInput1Value,
+            descriptionValue: descriptionValue,
+            valueDisplayValue: valueDisplayValue,
+        };
+        // Оновлення об'єкта глобальних даних
+        // Можливо, вам потрібно переписати цю частину для правильного оновлення даних
+        blueBoxesData.forEach(function (item) {
+            if (item.id === blueBoxId) {
+                item.textInput1 = textInput1Value;
+                item.description = descriptionValue;
+                item.valueDisplay = valueDisplayValue;
+            }
+        });
+
+        // Показати кнопку "Зберегти"
+        saveButton.style.display = "inline";
+    });
+
+// Встановлюємо обробник на кнопку "Зберегти"
+    saveButton.addEventListener("click", function () {
+        const textInput1 = document.getElementById("textInput1");
+        let description = document.getElementById("description");
+
+        // Отримуємо змінену інформацію
+        const updatedModel = textInput1.value;
+        const updatedDescription = description.value;
+        const updatedValue = valueDisplay.textContent;
+
+        // Ваша логіка оновлення запису, можливо, ви використовуєте fetch або інші методи для збереження змін
+        updateRecord(id, updatedModel, updatedDescription, updatedValue);
+
+        // Оновлюємо відображену інформацію на сторінці
+        modelElement.textContent = `модель: ${updatedModel}`;
+        descriptionElement.textContent = `опис: ${updatedDescription}`;
+        valueElement.textContent = `ціна: ${updatedValue}`;
+
+        // Ховаємо кнопку "Зберегти"
+        saveButton.style.display = "none";
+    });
+
+
+    blueBox.appendChild(editButton);
+    blueBox.appendChild(saveButton);
+
+    blueBoxContainer.appendChild(blueBox);
+
+    // Створюємо об'єкт blueBoxData і додаємо його до масиву
+    const blueBoxData = {
+        element: blueBox,
+        textInput1: model,
+        description: description,
+        valueDisplay: value,
+        id: id,
+    };
+    blueBoxesData.push(blueBoxData);
+    initialBlueBoxesData.push(blueBoxData);
+}
+
+// Функція для завантаження та відображення даних при завантаженні сторінки
+function loadAndDisplayData() {
+    fetch('http://localhost:35967/getRecords') // Оновіть це на URL для отримання всіх записів
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(record => {
+                // Для кожного запису створюємо blueBox
+                createBlueBox(record.model, record.description, record.value, record.id);
+            });
+        })
+        .catch(error => {
+            console.error('Помилка при отриманні записів:', error);
+        });
+}
+function updateRecord(id, model, description, value) {
+    fetch(`http://localhost:35967/updateRecord/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ model, description, value }),
+    })
+        .then(response => response.text())
+        .then(data => {
+            alert(data);
+        })
+        .catch(error => {
+            console.error('Помилка:', error);
+        });
+}
+
+function deleteRecord(id) {
+    return fetch(`http://localhost:35967/deleteRecord/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(response => response.text())
+        .then(data => {
+            alert(data);
+        });
+}
+
+// Викликаємо функцію для завантаження та відображення даних при завантаженні сторінки
+loadAndDisplayData();
