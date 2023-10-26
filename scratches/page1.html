@@ -1,0 +1,36 @@
+<!-- page1.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Сторінка для Button 1</title>
+</head>
+<body>
+<div id="pinkBox"></div>
+<div id="recordList"></div>
+<script>
+    const recordList = document.getElementById("recordList");
+
+    // Отримати дані з локального сховища браузера
+    const textInput1Value = localStorage.getItem("textInput1Value");
+    const descriptionValue = localStorage.getItem("descriptionValue");
+
+    // Перевіряємо, чи є дані в локальному сховищі, і відображаємо їх
+    if (textInput1Value !== null && descriptionValue !== null) {
+        // Створити новий запис і відобразити дані
+        const newRecord = document.createElement("div");
+        newRecord.textContent = `textInput1: ${textInput1Value}, description: ${descriptionValue}`;
+
+        // Додати новий запис до списку
+        recordList.appendChild(newRecord);
+    } else {
+        // Вивести повідомлення про відсутність даних
+        const noDataMessage = document.createElement("div");
+        noDataMessage.textContent = "Дані відсутні.";
+
+        // Додати повідомлення до списку
+        recordList.appendChild(noDataMessage);
+    }
+</script>
+</body>
+</html>
