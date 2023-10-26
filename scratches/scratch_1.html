@@ -2,160 +2,48 @@
 <html>
 <head>
     <title>Моя веб-сторінка</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="scratch.css">
+
+
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+            integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+            crossorigin="anonymous"
+    />
+    <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+            integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+            crossorigin="anonymous"
+    ></script>
+
+    <!-- UUID library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.2.0/uuid.min.js"></script>
 </head>
-<body>
-<header class="header">
-    <div class="container header__container">
-        <div class="images-container">
-            <img src="img/Rectangle%2032.png" style=" margin-top: 15px;" alt="logo">
-            <div style="width: 10px;"></div>
-            <img src="img/Rectangle%2033.png" alt="logo">
-        </div>
-        <nav class="header__nav" style="margin-right: 200px;">
-            <ul>
-                <li class="header__nav-item">
-                    <a class="heaader__nav-About" href="">About</a>
-                </li>
-                <li class="header__nav-item">
-                    <a class="heaader__nav-link" href="">Help</a>
-                </li>
-                <li class="header__nav-item">
-                    <a class="heaader__nav-link" href="">Features</a>
-                </li>
-                <li class="header__nav-item">
-                    <a class="heaader__nav-link" href="">Signup</a>
-                </li>
-            </ul>
-        </nav>
+<body class="bg-light">
+<button id="button1">1</button>
+<button id="button2">2</button>
 
-        <button class="header__buy-now">
-            <span>Request Demo</span>
-            <img src="img/Vector%2074.png" style=" margin-bottom: 7px;" alt="pointer">
-            <img src="img/Polygon%201.png" style="margin-left: -8px;" alt="pointer">
-        </button>
-    </div>
 
-    <div class="container header__1">
-        <div class="header__tekst">
-            <h1>Save your data <br>storage here.</h1>
-            <h3>
-                Data Warehouse is a data storage area that<br> has been
-                tested for security, so you can store<br> your data here
-                safely but not be afraid of<br> being stolen by others.
-            </h3>
+<script>
+    // Отримуємо посилання на кнопки та блок для відображення тексту
+    const button1 = document.getElementById("button1");
+    const button2 = document.getElementById("button2");
+    const result = document.getElementById("result");
 
-            <button class="header__Learn__more">Learn more</button>
-        </div>
+    const data = [];
 
-    </div>
 
-</header>
-<middle class="middle">
-    <div class="container middle__contecst">
-        <img src="img/image2.png" alt="img">
-        <div class="middle__text">
-            <h1>We are a high-level data<br> storage bank</h1>
-            <h3>The place to store various data that you
-                can access at any<br> time through the internet
-                and where you can carry it.<br> This very flexible
-                storage area has a high level of security.<br>
-                To enter into your own data you must enter
-                the password<br> that you created when you registered
-                in this Data<br> Warehouse.</h3>
-        </div>
-    </div>
-</middle>
-<bottom class="bottom">
-    <div class="bottom__text">
-        <h1>Features</h1>
-        <h3>Some of the features and advantages that we provide for
-            those of you<br> who store data in this Data Warehouse.</h3>
-    </div>
-    <div class="container bottom__img">
-        <div class="row">
-            <div class="container bottom__information__box">
-                <img src="img/image3%201.png" style=" margin-top: 30px;" alt="decor">
-                <div class="bottom__text__row">
-                    <h2>Search Data</h2>
-                    <h3>Don’t worry if your data is very<br> large,
-                        the Data Warehoue<br> provides a search engine,<br>
-                        which is useful for making it<br> easier to find
-                        data effectively<br> saving time.</h3>
-                    <h3>
-                        <span>Learn more</span>
-                        <img src="img/Vector%2074.png" style=" margin-bottom: 7px;" alt="background">
-                        <img src="img/Polygon%201.png" style="margin-left: -8px;" alt="background">
-                    </h3>
-                </div>
-            </div>
-            <div class="container bottom__information__box1">
-                <img src="img/image4.png" alt="decor">
-                <div class="bottom__text__row">
-                    <h2>24 Hours Access</h2>
-                    <h3>Access is given 24 hours a full<br> morning to
-                        night and meet<br> again in the morning, giving<br>
-                        you comfort when you need<br> data when urgent.</h3>
-                    <h3>
-                        <span>Learn more</span>
-                        <img src="img/Vector%2074.png" style=" margin-bottom: 7px;" alt="background">
-                        <img src="img/Polygon%201.png" style="margin-left: -8px;" alt="background">
-                    </h3>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="container bottom__information__box2">
-                <img src="img/image5%201.png" alt="decor">
-                <div class="bottom__text__row">
-                    <h2>Print Out</h2>
-                    <h3>Print out service gives you<br> convenience if
-                        someday you<br> need print data, just edit it all <br>and just print it.</h3>
-                    <h3>
-                        <span>Learn more</span>
-                        <img src="img/Vector%2074.png" style=" margin-bottom: 7px;" alt="background">
-                        <img src="img/Polygon%201.png" style="margin-left: -8px;" alt="background">
-                    </h3>
-                </div>
-            </div>
-            <div class="container bottom__information__box3">
-                <img src="img/image6%201.png" alt="decor">
-                <div class="bottom__text__row">
-                    <h2>Security Code</h2>
-                    <h3>Data Security is one of our<br> best facilities.
-                        Allows for your<br> files to be safer. The file can<br> be secured with
-                        a code or <br>password that you created,<br> so only you can open the file.</h3>
-                    <h3>
-                        <span>Learn more</span>
-                        <img src="img/Vector%2074.png" style=" margin-bottom: 7px;" alt="background">
-                        <img src="img/Polygon%201.png" style="margin-left: -8px;" alt="background">
-                    </h3>
-                </div>
-            </div>
-        </div>
-    </div>
-</bottom>
-<end class="container end">
-    <div class="rrrrrr">
-        <div class="end__title">
-            <h2>Try for free!</h2>
-            <h3>Get limited 1 week free try our features!</h3>
-        </div>
-        <div class="end__right">
-            <button class="end__button__left">Learn more</button>
-            <button class="end__button__ridht" style="margin-left: 40px;">
-                <span>Request Demo</span>
-                <img src="img/Vector%2074.png" style=" margin-bottom: 7px;" alt="background">
-                <img src="img/Polygon%201.png" style="margin-left: -8px;" alt="background">
-            </button>
-        </div>
-    </div>
-    <div class="end__end">
-        <h3>© Datawarehouse™, 2020. All rights reserved.<br> Company Registration Number: 21479524.</h3>
-        <button class="end__end__button">
-            <img src="img/Ellipse%2068.png" style="margin-left: -7px" alt="decor">
-        </button>
-    </div>
-</end>
+    // Додаємо обробники подій на кнопки
+    button1.addEventListener("click", function () {
+        window.location.href = "page1.html";
+    });
+
+    button2.addEventListener("click", function () {
+        window.location.href = "page2.html";
+    });
+
+</script>
 </body>
 </html>

@@ -7,27 +7,30 @@
     <link rel="stylesheet" type="text/css" href="scratch.css">
 </head>
 <body>
+<div class="none">.  </div>
+<a class="button__add" id="button1">Додавання елементів</a>
+<a class="button__search" id="button2">Пошук елементів</a>
 <div id="result"></div>
 <div class="basis">
 <div class="box__left">
 <div class="name" id="name1">Helicopters</div>
-<div>
+<div id="search__div">
     <input type="text" id="searchInput" placeholder="Введіть текст для пошуку">
     <a  class="button__style" id="searchButton" href="#">Пошук</a>
 </div>
-    <div>ведіть модель гелікоптера </div>
+    <div id="field__description"> Введіть модель гелікоптера </div>
 <input type="text" id="textInput1" placeholder="Введіть текст">
-    <div>Description</div>
+    <div id="main__description">Опис</div>
 <div>
     <textarea id="description" rows="4" cols="50" placeholder="Введіть опис..."></textarea>
 </div>
-<div style="display: flex;">
+<div  id="praise__menu" style="display: flex">
     <div>$</div>
     <div id="valueDisplay" contenteditable="true">100</div>
     <a class="button__style" id="increaseButton">Вверх</a>
     <a class="button__style" id="decreaseButton">Вниз</a>
 </div>
-<div class="w">
+<div class="w" id="button__creat__sort">
 <a class="button__style" id="creat">creat</a>
     <a class="button__style" id="sort">sort</a>
 </div>
@@ -40,7 +43,8 @@
         <a class="button__style" id="wefweButton">remove</a>
     </div>
 </div>
-<script src="script.js">
-</script>
+<script type="module" src="script.js"></script>
+<script type="module" src="creation.js"></script>
+<script type="module" src="creation1.js"></script>
 </body>
 </html>

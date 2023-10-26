@@ -13,37 +13,140 @@ const blueBoxesData = [];
 const initialBlueBoxesData = [];
 let isSorted = false;
 
-// Array to keep track of blueBox elements created by creatButton
+
 const createdBlueBoxes = [];
 
+const editButton = document.createElement("a");
+editButton.classList.add("edit-button");
+editButton.textContent = "Редагувати";
+
 creatButton.addEventListener("click", function () {
-    const textInput1Value = document.getElementById("textInput1").value;
-    const descriptionValue = document.getElementById("description").value;
-    const valueDisplayValue = parseInt(document.getElementById("valueDisplay").textContent, 10);
+    let textInput1 = document.getElementById("textInput1");
+    let description = document.getElementById("description");
+    let valueDisplay = document.getElementById("valueDisplay");
+
+    let textInput1Value = textInput1.value;
+    let descriptionValue = description.value;
+    let valueDisplayValue = parseInt(valueDisplay.textContent, 10);
 
     if (textInput1Value.trim() === "" && descriptionValue.trim() === "") {
-        // Перевірка, чи обидва поля пусті
         alert("Ви нічого не вписали в поля textInput1 і description");
-        return; // Припинити виконання обробника
+        return;
     }
+
+    // Генеруємо унікальний ідентифікатор для блоку
+    const blueBoxId = Date.now();
 
     const blueBox = document.createElement("div");
     blueBox.classList.add("blue-box");
-    blueBox.innerHTML = `модель: ${textInput1Value}<br>опис: ${descriptionValue}<br>ціна: ${valueDisplayValue}`;
 
-    blueBoxesData.push({ element: blueBox, textInput1: textInput1Value, valueDisplay: valueDisplayValue });
-    initialBlueBoxesData.push({ element: blueBox, textInput1: textInput1Value, valueDisplay: valueDisplayValue });
+    const editButton = document.createElement("a");
+    editButton.classList.add("edit-button");
+    editButton.textContent = "Редагувати";
 
+    const saveButton = document.createElement("a");
+    saveButton.classList.add("save-button");
+    saveButton.textContent = "Зберегти";
+    saveButton.style.display = "none"; // Initially hide the "Зберегти" button
 
-    createdBlueBoxes.push(blueBox);
-
-    blueBoxContainer.innerHTML = "";
-
-    blueBoxesData.forEach((item) => {
-        blueBoxContainer.appendChild(item.element);
+    editButton.addEventListener("click", function () {
+        // When "Редагувати" is clicked, show the "Зберегти" button
+        textInput1.value = textInput1Value;
+        description.value = descriptionValue;
+        valueDisplay.textContent = valueDisplayValue;
+        saveButton.style.display = "inline";
     });
 
+    saveButton.addEventListener("click", function () {
+        // When "Зберегти" is clicked, save the changes and hide the button
+        const updatedModel = textInput1.value;
+        const updatedDescription = description.value;
+        const updatedValue = valueDisplay.textContent;
+
+        // Викликайте функцію оновлення
+        updateRecord(blueBoxId, updatedModel, updatedDescription, updatedValue);
+
+        // Оновіть дані на сторінці (якщо потрібно)
+        textInput1Value = updatedModel;
+        descriptionValue = updatedDescription;
+        valueDisplayValue = updatedValue;
+
+        modelElement.textContent = updatedModel;
+        descriptionElement.textContent = updatedDescription;
+        valueElement.textContent = updatedValue;
+        saveButton.style.display = "none";
+    });
+
+    blueBox.innerHTML = `модель: <span class="model">${textInput1Value}</span>
+    опис: <span class="description">${descriptionValue}</span>
+    ціна: <span class="value">${valueDisplayValue}</span>`;
+
+    const modelElement = blueBox.querySelector(".model");
+    const descriptionElement = blueBox.querySelector(".description");
+    const valueElement = blueBox.querySelector(".value");
+
+    const blueBoxData = {
+        element: blueBox,
+        textInput1: textInput1Value,
+        description: descriptionValue,
+        valueDisplay: valueDisplayValue,
+        id: blueBoxId // Зберіть унікальний ідентифікатор
+    };
+
+    blueBoxesData.push(blueBoxData);
+    initialBlueBoxesData.push(blueBoxData);
+
+    blueBox.appendChild(editButton);
+    blueBox.appendChild(saveButton); // Add the "Зберегти" button
+
+    blueBoxContainer.appendChild(blueBox);
+    //база баних
+    const modelValue = textInput1.value; // Отримайте значення з поля textInput1
+    const descriptionbd = description.value;
+    const valueDisplaybd = valueDisplay.textContent;
+
+    // Перевірка, чи поле не є пустим
+    if (textInput1Value.trim() === "" || descriptionValue.trim() === "" || valueDisplay.textContent.trim() === "") {
+        alert("Усі поля повинні бути заповнені");
+        return;
+    }
+
+    // Відправка значення на сервер для запису в базу даних
+    fetch('http://localhost:35967/createRecord', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ model: modelValue, description: descriptionbd, value: valueDisplaybd, id: blueBoxId }),
+    })
+        .then(response => response.text())
+        .then(data => {
+            alert(data); // Повідомлення про створення запису
+        })
+        .catch(error => {
+            console.error('Помилка:', error);
+        });
+
+    function updateRecord(id, model, description, value) {
+        fetch(`http://localhost:35967/updateRecord/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ model, description, value }),
+        })
+            .then(response => response.text())
+            .then(data => {
+                alert(data); // Повідомлення про успішне оновлення запису
+            })
+            .catch(error => {
+                console.error('Помилка:', error);
+            });
+    }
 });
+
+
+
 
 sortButton.addEventListener("click", function () {
     isSorted = !isSorted;
@@ -110,63 +213,103 @@ const originalBlueBoxContainerLeftElements = [];
 
 searchButton.addEventListener("click", function () {
     const searchText = searchInput.value.toLowerCase();
+    currentSum = 0;
+
+
+    const matchingBoxes = [];
 
     blueBoxesData.forEach(function (item) {
         const boxText = item.element.textContent.toLowerCase();
-        if (searchText !== "") {
-            if (boxText.includes(searchText)) {
-               // item.element.style.backgroundColor = "yellow";
-               // item.element.style.width = "150px";
-               // item.element.style.flexBasis = "auto";
-               // item.element.style.color = "blue";
-               // blueBoxContainerLeft.appendChild(item.element.cloneNode(true));
-                currentSum += item.valueDisplay;
-                sum.textContent = currentSum;
-               // item.element.style.display = "none";
-            } else {
-                item.element.style.backgroundColor = "blue";
-                item.element.style.color = "black";
-                item.element.style.display = "none";
-            }
-        } else {
-            item.element.style.backgroundColor = "blue";
-            item.element.style.color = "black";
-            item.element.style.display = "block";
+        if (searchText !== "" && boxText.includes(searchText)) {
+            matchingBoxes.push(item);
+            currentSum += item.valueDisplay;
         }
     });
 
-    blueBoxesData.forEach(function (item) {
-        originalBlueBoxContainerLeftElements.push(item);
-    });
+    sum.textContent = currentSum;
 
 
-    blueBoxContainerLeftElements.length = 0;
-    blueBoxContainerLeftElements.push(...blueBoxesData.filter(item => item.element.style.backgroundColor === "yellow"));
 
-    const previousYellowBox = document.querySelector("div[style='background-color: yellow;']");
-    if (previousYellowBox) {
-        previousYellowBox.style.backgroundColor = "blue";
-        previousYellowBox.style.color = "white";
+    blueBoxContainer.innerHTML = "";
+    if (searchText === "") {
+        blueBoxesData.forEach(function (item) {
+            blueBoxContainer.appendChild(item.element);
+        });
+    } else {
+        matchingBoxes.forEach(function (item) {
+            blueBoxContainer.appendChild(item.element);
+        });
     }
 });
+
 
 let originalBlueBoxesData = blueBoxesData.slice();
 
 wefweButton.addEventListener("click", function () {
     console.log("wefweButton clicked");
 
-    // Remove the blueBox elements created by creatButton
     createdBlueBoxes.forEach((blueBox) => {
         blueBox.remove();
     });
 
-    // Clear the createdBlueBoxes array
     createdBlueBoxes.length = 0;
 
     currentSum = 0;
     sum.textContent = currentSum;
 
-    console.log("Contents of blueBoxContainerLeft after removing:", blueBoxContainerLeft);
+
+    blueBoxesData.length = 0;
+    initialBlueBoxesData.forEach((item) => {
+        const clone = item.element.cloneNode(true);
+        const editButton = clone.querySelector(".edit-button");
+
+        editButton.addEventListener("click", function () {
+            const modelElement = clone.querySelector(".model");
+            const descriptionElement = clone.querySelector(".description");
+            const valueElement = clone.querySelector(".value");
+
+            let fieldToEdit = prompt("Яке поле ви хочете відредагувати? (модель/опис/ціна)", "модель");
+            fieldToEdit = fieldToEdit.toLowerCase();
+
+            switch (fieldToEdit) {
+                case "модель":
+                    const newModelValue = prompt("Редагувати модель:", modelElement.textContent);
+                    if (newModelValue !== null) {
+                        modelElement.textContent = newModelValue;
+                    }
+                    break;
+                case "опис":
+                    const newDescriptionValue = prompt("Редагувати опис:", descriptionElement.textContent);
+                    if (newDescriptionValue !== null) {
+                        descriptionElement.textContent = newDescriptionValue;
+                    }
+                    break;
+                case "ціна":
+                    const newValue = prompt("Редагувати ціну:", valueElement.textContent);
+                    if (newValue !== null) {
+                        const parsedValue = parseInt(newValue, 10);
+                        if (!isNaN(parsedValue)) {
+                            valueElement.textContent = parsedValue;
+                        }
+                    }
+                    break;
+                default:
+                    alert("Невідоме поле. Доступні поля: модель, опис, ціна.");
+                    break;
+            }
+
+
+            const index = initialBlueBoxesData.indexOf(item);
+            if (index !== -1) {
+                initialBlueBoxesData[index].textInput1 = modelElement.textContent;
+                initialBlueBoxesData[index].description = descriptionElement.textContent;
+                initialBlueBoxesData[index].valueDisplay = parseInt(valueElement.textContent, 10);
+            }
+        });
+
+        blueBoxesData.push({ element: clone, textInput1: item.textInput1, description: item.description, valueDisplay: item.valueDisplay });
+        blueBoxContainer.appendChild(clone);
+    });
 });
 
 
