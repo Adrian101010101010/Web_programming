@@ -55,7 +55,7 @@ creatButton.addEventListener("click", function () {
     deleteButton.addEventListener("click", function () {
         deleteRecord(data.id)
             .then(() => {
-                blueBox.remove(); // Видаляємо blueBox зі сторінки після видалення з бази даних
+                blueBox.remove();
             })
             .catch(error => {
                 console.error('Помилка при видаленні запису:', error);
@@ -257,7 +257,7 @@ const originalBlueBoxContainerLeftElements = [];
 searchButton.addEventListener("click", function () {
     const searchText = searchInput.value.toLowerCase();
 
-    currentSum = 0; // Очистити поточну суму перед обчисленням
+    currentSum = 0;
 
     const matchingBoxes = [];
 
@@ -265,7 +265,6 @@ searchButton.addEventListener("click", function () {
         const boxText = item.element.textContent.toLowerCase();
         if (searchText !== "" && boxText.includes(searchText)) {
             matchingBoxes.push(item);
-            // Витягуємо числове значення ціни і додаємо до поточної суми
             currentSum += parseInt(item.valueDisplay, 10);
         }
     });
@@ -357,7 +356,7 @@ wefweButton.addEventListener("click", function () {
 
 
 
-// Функція для створення blueBox
+
 function createBlueBox(model, description, value, id) {
     const blueBox = document.createElement("div");
     blueBox.classList.add("blue-box");
@@ -398,7 +397,7 @@ function createBlueBox(model, description, value, id) {
     deleteButton.addEventListener("click", function () {
         deleteRecord(id)
             .then(() => {
-                blueBox.remove(); // Видаляємо blueBox зі сторінки після видалення з бази даних
+                blueBox.remove();
             })
             .catch(error => {
                 console.error('Помилка при видаленні запису:', error);
@@ -407,14 +406,12 @@ function createBlueBox(model, description, value, id) {
 
     blueBox.appendChild(deleteButton);
 
-// Встановлюємо обробник на кнопку "Редагувати"
     editButton.addEventListener("click", function () {
-        // Отримуємо інформацію про поточний запис
+
         const textInput1 = document.getElementById("textInput1");
         const description = document.getElementById("description");
         const valueDisplay = document.getElementById("valueDisplay");
 
-        // Отримуємо інформацію для редагування з поточного запису
         const textInput1Value = textInput1.value;
         const descriptionValue = description.value;
         const valueDisplayValue = parseInt(valueDisplay.textContent, 10);
@@ -440,20 +437,19 @@ function createBlueBox(model, description, value, id) {
             .catch(error => {
                 console.error('Помилка при отриманні id:', error);
             });
-        // Ваша логіка редагування, наприклад, оновлення полів вводу
+
         textInput1.value = initialTextInput1Value;
         description.value = initialDescriptionValue;
         valueDisplay.textContent = initialValueDisplayValue;
         let blueBoxId = Date.now();
-        // Збереження інформації про запис, який редагується, в глобальну змінну або десь інде
+
         const recordToEdit = {
             id: blueBoxId,
             textInput1Value: textInput1Value,
             descriptionValue: descriptionValue,
             valueDisplayValue: valueDisplayValue,
         };
-        // Оновлення об'єкта глобальних даних
-        // Можливо, вам потрібно переписати цю частину для правильного оновлення даних
+
         blueBoxesData.forEach(function (item) {
             if (item.id === blueBoxId) {
                 item.textInput1 = textInput1Value;
@@ -462,29 +458,23 @@ function createBlueBox(model, description, value, id) {
             }
         });
 
-        // Показати кнопку "Зберегти"
         saveButton.style.display = "inline";
     });
 
-// Встановлюємо обробник на кнопку "Зберегти"
     saveButton.addEventListener("click", function () {
         const textInput1 = document.getElementById("textInput1");
         let description = document.getElementById("description");
 
-        // Отримуємо змінену інформацію
         const updatedModel = textInput1.value;
         const updatedDescription = description.value;
         const updatedValue = valueDisplay.textContent;
 
-        // Ваша логіка оновлення запису, можливо, ви використовуєте fetch або інші методи для збереження змін
         updateRecord(id, updatedModel, updatedDescription, updatedValue);
 
-        // Оновлюємо відображену інформацію на сторінці
         modelElement.textContent = `модель: ${updatedModel}`;
         descriptionElement.textContent = `опис: ${updatedDescription}`;
         valueElement.textContent = `ціна: ${updatedValue}`;
 
-        // Ховаємо кнопку "Зберегти"
         saveButton.style.display = "none";
     });
 
@@ -494,7 +484,7 @@ function createBlueBox(model, description, value, id) {
 
     blueBoxContainer.appendChild(blueBox);
 
-    // Створюємо об'єкт blueBoxData і додаємо його до масиву
+
     const blueBoxData = {
         element: blueBox,
         textInput1: model,
@@ -506,13 +496,13 @@ function createBlueBox(model, description, value, id) {
     initialBlueBoxesData.push(blueBoxData);
 }
 
-// Функція для завантаження та відображення даних при завантаженні сторінки
+
 function loadAndDisplayData() {
-    fetch('http://localhost:35967/getRecords') // Оновіть це на URL для отримання всіх записів
+    fetch('http://localhost:35967/getRecords')
         .then(response => response.json())
         .then(data => {
             data.forEach(record => {
-                // Для кожного запису створюємо blueBox
+
                 createBlueBox(record.model, record.description, record.value, record.id);
             });
         })
@@ -550,5 +540,5 @@ function deleteRecord(id) {
         });
 }
 
-// Викликаємо функцію для завантаження та відображення даних при завантаженні сторінки
+
 loadAndDisplayData();
