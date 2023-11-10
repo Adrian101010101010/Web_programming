@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from '../foto/logo.png';
 
-const Header = () => {
+
+const Header = ({ onCatalogClick, onHomeClick }) => {
+    const [activeMenuItem, setActiveMenuItem] = useState(null);
+
+    const handleCatalogClick = () => {
+        onCatalogClick();
+        setActiveMenuItem('catalog');
+    };
+
+    const handleHomeClick = () => {
+        onHomeClick();
+        setActiveMenuItem('home');
+    };
+
     const logoStyle = {
         width: '100%',
         height: '100%',
-
-
     };
+
     return (
         <header className="header">
             <div className="logo">
@@ -15,8 +27,12 @@ const Header = () => {
             </div>
             <nav className="nav">
                 <ul>
-                    <li>Home</li>
-                    <li>Catalog</li>
+                    <li onClick={handleHomeClick} className={activeMenuItem === 'home' ? 'active' : ''}>
+                        Home
+                    </li>
+                    <li onClick={handleCatalogClick} className={activeMenuItem === 'catalog' ? 'active' : ''}>
+                        Catalog
+                    </li>
                     <li>Cart</li>
                 </ul>
             </nav>

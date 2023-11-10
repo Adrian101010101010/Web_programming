@@ -124,7 +124,7 @@ margin-top: 100px;
 }
 
 .container{
-  background: #4d4c4c;
+  background: #212121;
 }
 
 .viwe_more {
@@ -133,6 +133,22 @@ margin-top: 100px;
   background: #2fff59;
   border-radius: 50px;
 
+}
+.show-full-info-btn {
+  position: absolute;
+   top: 752px;/* Adjust the top value based on your preference */
+  left: 200px; /* Adjust the left value based on your preference */
+  z-index: 994;
+  width: 100px;
+  height: 50px;
+  background: #2fff59;
+  border-radius: 50px;
+}
+.viwe_more2 {
+  width: 100px;
+  height: 50px;
+  background: #2fff59;
+  border-radius: 50px;
 }
 
 .viwe_more:hover {
@@ -170,4 +186,65 @@ margin: 0;
 }
 h1{
   color: white;
+}
+
+.dropdown-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color:  #10a80a;
+  color: white;
+  padding: 10px;
+}
+
+#options {
+  width: 105px;
+  height: 25px;
+  border-radius: 30px;
+  background-color: #2fff59;
+  margin: 5px;
+}
+.search-menu {
+  background: #2fff59;
+  width: 250px;
+  height: 25px;
+  border-radius: 40px;
+  border-color: #212121;
+
+}
+
+.input-text {
+  background: #2fff59;
+  border: none;
+  outline: none;
+}
+
+.active {
+  background-color: #10a80a;
+  /* Додайте інші стилі за потреби */
+}
+.list-item {
+  background: #464545;
+  border-radius: 20px;
+}
+.value {
+  display: flex;
+  gap: 50px;
+  margin: 10px;
+}
+
+#configurationSelect{
+  background: #2fff59;
+  width: 100px;
+  height: 25px;
+  border-radius: 40px;
+  border-color: #212121;
+
+}
+.custom-select {
+  background: #2fff59;
+  width: 100px;
+  height: 25px;
+  border-radius: 40px;
+  border-color: #212121;
 }
