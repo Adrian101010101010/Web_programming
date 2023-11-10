@@ -1,0 +1,250 @@
+
+/* App.css */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #2fff59;
+  color: white;
+  padding: 10px;
+}
+
+.logo {
+  font-size: 24px;
+}
+
+.nav {
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+
+}
+
+li {
+  margin: 0 10px;
+  width: 100px;
+  height: 35px;
+  background: #4d4c4c;
+  border-radius: 50px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+li:hover {
+  cursor: pointer;
+  background: #10a80a;
+}
+.middle {
+  justify-content: center;
+  display: flex;
+  margin-top: 15px;
+  padding: 20px;
+}
+.element_of_three {
+  justify-content: center;
+  display: flex;
+  margin-top: 105px;
+}
+.item_description {
+  margin-left: 100px;
+}
+.viwe_more {
+  position: absolute;
+  left: 50%;
+}
+
+.info_series {
+
+margin-top: 100px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  align-items: center;
+
+}
+
+.logo1 {
+  width: 400px;
+  height: 200px;
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+.rotate {
+  animation: spin 4s linear infinite;
+  transform-origin: center;
+
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+
+  }
+}
+
+.third_element_of_three {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.second_element_of_three{
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.first_element_of_three{
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.container{
+  background: #212121;
+}
+
+.viwe_more {
+  width: 100px;
+  height: 50px;
+  background: #2fff59;
+  border-radius: 50px;
+
+}
+.show-full-info-btn {
+  position: absolute;
+   top: 752px;/* Adjust the top value based on your preference */
+  left: 200px; /* Adjust the left value based on your preference */
+  z-index: 994;
+  width: 100px;
+  height: 50px;
+  background: #2fff59;
+  border-radius: 50px;
+}
+.viwe_more2 {
+  width: 100px;
+  height: 50px;
+  background: #2fff59;
+  border-radius: 50px;
+}
+
+.viwe_more:hover {
+
+  background: #10a80a;
+}
+p{
+  color: #2fff59;
+  text-decoration: #2fff59;
+}
+
+.info_series_top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lii{
+  width: 35px;
+  height: 35px;
+}
+
+.description {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+margin: 0;
+}
+.divWithLine {
+  border-top: 4px solid #2fff59; /* Додайте бажаний колір, стиль і ширину лінії */
+  width: 1000px; /* Задайте бажану ширину лінії (100px у вашому випадку) */
+  margin: 0 auto;
+  text-align: center;
+}
+h1{
+  color: white;
+}
+
+.dropdown-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color:  #10a80a;
+  color: white;
+  padding: 10px;
+}
+
+#options {
+  width: 105px;
+  height: 25px;
+  border-radius: 30px;
+  background-color: #2fff59;
+  margin: 5px;
+}
+.search-menu {
+  background: #2fff59;
+  width: 250px;
+  height: 25px;
+  border-radius: 40px;
+  border-color: #212121;
+
+}
+
+.input-text {
+  background: #2fff59;
+  border: none;
+  outline: none;
+}
+
+.active {
+  background-color: #10a80a;
+  /* Додайте інші стилі за потреби */
+}
+.list-item {
+  background: #464545;
+  border-radius: 20px;
+}
+.value {
+  display: flex;
+  gap: 50px;
+  margin: 10px;
+}
+
+#configurationSelect{
+  background: #2fff59;
+  width: 100px;
+  height: 25px;
+  border-radius: 40px;
+  border-color: #212121;
+
+}
+.custom-select {
+  background: #2fff59;
+  width: 100px;
+  height: 25px;
+  border-radius: 40px;
+  border-color: #212121;
+}
