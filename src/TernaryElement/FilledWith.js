@@ -7,7 +7,7 @@ const FilledWith = ({ item, index }) => {
     };
 
     return (
-        <div key={index} className="list-item" style={{ margin: '10px', width: '450px' }}>
+        <div key={index} className="list-item1" style={{ margin: '10px', width: '450px'}}>
             <div className="logo1">
                 <img src={item.image} alt="Logo" style={logoStyle} className="" />
             </div>
