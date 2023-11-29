@@ -1,47 +1,54 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import Raptor from '../foto/F-22.jpg';
+import Harrier from '../foto/AV-8B.jpg';
 
-const FullInformation = ({ item, onClose }) => {
+const FullInformation = () => {
     const [selectedOption2, setSelectedOption2] = useState("Option 1");
+    const [product, setProduct] = useState(null);
     const navigate = useNavigate();
-
-    const logoStyle = {
-        width: '100%',
-        height: '100%',
-    };
+    const { id } = useParams();
+    const productImages = [Raptor, Harrier];
 
     const handleOptionChange2 = (event) => {
         setSelectedOption2(event.target.value);
     };
 
-    useEffect(() => {
-        if (item && item.id) {
-            navigate(`/item/${item.id}`);
-        }
-    }, [item, navigate]);
-
-    // Add a check for the item
-    if (!item) {
-        // You might want to handle the case where item is null or undefined
-        return <div>No information available for this item.</div>;
-    }
-
-    const handleCloseClick = () => {
+    const onClose = () => {
         // Navigate back to the "/catalog" route when the "Close" button is clicked
         navigate('/catalog');
     };
 
+    useEffect(() => {
+        // Викликати API-запит при завантаженні компонента
+        const fetchProduct = async () => {
+            try {
+                // Check if id is undefined, use a default value or handle it as needed
+                const productId = id || 10; // Use 10 as the default value
+
+                const response = await axios.get(`/api/products/${productId}`);
+                setProduct(response.data);
+            } catch (error) {
+                console.error('Error fetching product:', error);
+            }
+        };
+
+        fetchProduct();
+    }, [id]); // Залежність id гарантує виклик API-запиту при зміні id
+
+    if (!product) {
+        // Відобразити, що дані ще завантажуються
+        return <p>Loading...</p>;
+    }
+
     return (
         <div>
             <section className="middle">
-                <div className="logo1">
-                    <img src={item.image} alt="Logo" style={logoStyle} className="" />
-                </div>
+                <img src={productImages[Math.floor(Math.random() * productImages.length)]} alt="Product" style={{ width: '600px', height: '350px', objectFit: 'cover' }} />
                 <div className="item_description">
-                    <h1>{item.title}</h1>
-                    <p>{item.description}</p>
-
-                    {/* ... (other details based on the item) */}
+                    <h1>{product.title}</h1>
+                    <p>{product.description}</p>
 
                     <div className={"value"}>
                         <div>
@@ -60,9 +67,9 @@ const FullInformation = ({ item, onClose }) => {
                 </div>
             </section>
             <section className="close-button-section">
-                <p>{item.price}</p>
+                <p>${product.value}</p>
                 <div className="button-container">
-                    <button onClick={handleCloseClick} className="close-button">
+                    <button onClick={onClose} className="close-button">
                         Close
                     </button>
                     <button onClick={onClose} className="Add-button">

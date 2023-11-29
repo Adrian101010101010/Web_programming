@@ -8,13 +8,14 @@ import BottomSection from './BottomSection/MiddleSection2';
 import Catalog from './Catalog/Catalog';
 import FullInformation from './FullInformation/FullInformation';
 import TernaryRandom from "./RandomData/TernaryRandom";
-
+import ProductList from "./Catalog/qqqqq";
 function App() {
     const [showCatalog, setShowCatalog] = useState(false);
     const [ternaryElementsCount, setTernaryElementsCount] = useState(1);
     const [showFullInformation, setShowFullInformation] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [products, setProducts] = useState([]);
 
     const handleCatalogClick = () => {
         setShowCatalog(true);
@@ -74,8 +75,15 @@ function App() {
                         />
                         <Route
                             path="/catalog"
-                            element={
+                          /*  element={
                                 <Catalog onItemViewMoreClick={handleItemViewMoreClick} />
+                            }*/
+                            element={
+                                products ? (
+                                    <ProductList products={products} />
+                                ) : (
+                                    <div>Loading...</div>
+                                )
                             }
                         />
                         <Route

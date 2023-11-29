@@ -330,7 +330,34 @@ h1{
     transform: rotate(360deg);
   }
 }
+.rotate1 {
+  width: 100px;
+  height: 100px;
+  animation: spin 4s linear infinite;
+  transform-origin: center; /* половина ширини елемента */
+  z-index: 1;
+}
 
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
 
+  }
+}
+.hidden {
+  display: none;
+}
+.pppp{
 
+  margin-top: 25%;
+  color: #212121;
+  font-size: 1.5em;
+}
+
+.logo-overlay{
+  display: flex;
+}
 
