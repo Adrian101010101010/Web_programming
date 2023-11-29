@@ -1,33 +1,25 @@
-// SortSelect.js
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
-const SortSelect = ({ value, onChange, onCountryChange, onSearchChange }) => {
+const SortSelect = ({onSortChange, onSearchChange, onCountryChange, onSortClick, onSortByValueClick}) => {
     const [searchText, setSearchText] = useState('');
 
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
             onSearchChange(searchText);
+            onSortClick(); // Call the sorting function passed from ProductList
         }
     };
 
     return (
         <div className="dropdown-menu">
-            <label>
-                <select className="custom-select" value={value} onChange={onChange}>
-                    <option value="title">Title</option>
-                    <option value="price">Price</option>
-                    <option value="country">Country</option>
-                </select>
-            </label>
-            {value === 'country' && (
-                <label>
-                    <select className="custom-select" onChange={(e) => onCountryChange(e.target.value)}>
-                        <option value="">All</option>
-                        <option value="USA">USA</option>
-                        <option value="Japan">Japan</option>
-                    </select>
-                </label>
-            )}
+            <div>
+                <button className={"viwe_more2"} onClick={() => {
+                    onSearchChange(searchText);
+                    onSortClick();
+                }}>Sort by ABC
+                </button>
+                <button className={"viwe_more2"} onClick={onSortByValueClick}>Sort by Praise</button>
+            </div>
             <label>
                 🔍
                 <input
@@ -38,7 +30,7 @@ const SortSelect = ({ value, onChange, onCountryChange, onSearchChange }) => {
                     onKeyPress={handleKeyPress}
                 />
             </label>
-            <button className={"viwe_more2"}>Apply</button>
+            <p> </p>
         </div>
     );
 };
