@@ -26,7 +26,7 @@ db.connect((err) => {
 });
 
 app.get('/api/products', (req, res) => {
-    const sql = 'SELECT title, description, value FROM my_table'; // Update with your table name
+    const sql = 'SELECT id, title, description, value FROM my_table'; // Update with your table name
     db.query(sql, (err, results) => {
         if (err) {
             console.error('Помилка при отриманні продуктів:', err);
@@ -37,6 +37,41 @@ app.get('/api/products', (req, res) => {
     });
 });
 
+app.get('/api/fullinformation', (req, res) => {
+    const sql = 'SELECT id, title, description, value FROM my_table WHERE id = 10'; // Update with your table name
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Помилка при отриманні продуктів:', err);
+            res.status(500).send('Помилка при отриманні продуктів');
+        } else {
+            res.status(200).json(results);
+        }
+    });
+});
+
+app.get('/api/fullinformation1', (req, res) => {
+    const sql = 'SELECT id, title, description, value FROM my_table WHERE id = 11'; // Update with your table name
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Помилка при отриманні продуктів:', err);
+            res.status(500).send('Помилка при отриманні продуктів');
+        } else {
+            res.status(200).json(results);
+        }
+    });
+});
+
+app.get('/api/fullinformation2', (req, res) => {
+    const sql = 'SELECT id, title, description, value FROM my_table WHERE id = 12'; // Update with your table name
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Помилка при отриманні продуктів:', err);
+            res.status(500).send('Помилка при отриманні продуктів');
+        } else {
+            res.status(200).json(results);
+        }
+    });
+});
 
 app.get('/getProducts', (req, res) => {
     const { criteria = 'title', order = 'asc' } = req.query;
@@ -68,24 +103,36 @@ app.get('/api/products/sortByValueDesc', (req, res) => {
         }
     });
 });
+// ... (your existing imports)
 
 app.get('/api/products/:id', (req, res) => {
     const productId = req.params.id;
-    const defaultId = 10; // Значення за замовчуванням
-    const sql = 'SELECT title, description, value FROM my_table WHERE id = ?'; // Замініть my_table на вашу таблицю
+    const defaultId = '15'; // Treat the default ID as a string
 
-    db.query(sql, [productId || defaultId], (err, results) => {
+    // If the provided ID is not 10, return a 404 response
+    if (productId !== defaultId) {
+        res.status(404).send('Product not found');
+        return;
+    }
+
+    // Define the SQL query to fetch product details by ID
+    const sql = 'SELECT title, description, value FROM my_table WHERE id = ?';
+
+    // Execute the query
+    db.query(sql, [productId], (err, results) => {
         if (err) {
-            console.error('Помилка при отриманні продукту:', err);
-            res.status(500).send('Помилка при отриманні продукту');
+            console.error('Error fetching product:', err);
+            res.status(500).send('Error fetching product');
         } else if (results.length === 0) {
-            res.status(404).send('Продукт не знайдено');
+            res.status(404).send('Product not found');
         } else {
             const product = results[0];
             res.status(200).json(product);
         }
     });
 });
+
+// ... (your other routes)
 
 
 

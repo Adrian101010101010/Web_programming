@@ -3,12 +3,12 @@ import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
 import Raptor from '../foto/F-22.jpg';
 import Harrier from '../foto/AV-8B.jpg';
-import {fetchProducts1, getProductsBySearch, getProductsByValueDesc} from "../Catalog/productsApi";
+import {fetchProducts3, getProductsBySearch, getProductsByValueDesc} from "../Catalog/productsApi";
 import SortSelect from "../DropdownComponent/SortSelect";
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../Redux/actions';
 
-const FullInformation = () => {
+const FullInformation2 = () => {
     const [products, setProducts] = useState([]);
     const [sortCriteria, setSortCriteria] = useState('description');
     const [sortOrder, setSortOrder] = useState('asc');
@@ -24,7 +24,7 @@ const FullInformation = () => {
     const [isAddedToCart, setIsAddedToCart] = useState(false);
 
     useEffect(() => {
-        fetchProducts1(setProducts, setSortCriteria, setSortOrder, setSearchText, setIsCountrySelected, location);
+        fetchProducts3(setProducts, setSortCriteria, setSortOrder, setSearchText, setIsCountrySelected, location);
     }, [location.search]);
 
 
@@ -165,4 +165,4 @@ const FullInformation = () => {
         </div>
     );
 }
-    export default FullInformation;
+export default FullInformation2;

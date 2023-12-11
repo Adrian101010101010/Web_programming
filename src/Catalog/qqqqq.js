@@ -17,7 +17,7 @@ const ProductList = () => {
     const [applySort, setApplySort] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-    const productImages = [Raptor, Harrier];
+    const productImages = [Raptor];
 
     useEffect(() => {
         fetchProducts(setProducts, setSortCriteria, setSortOrder, setSearchText, setIsCountrySelected, location);
@@ -102,10 +102,9 @@ const ProductList = () => {
                         <h2>{product.title}</h2>
                         <p>{product.description}</p>
                         <p>{product.value}</p>
-                        <button className={"viwe_more2"} onClick={() => navigate(`/item/${product.id}`, { state: { product } })}>
+                        <button className={"viwe_more2"} onClick={() => navigate(`/item/${product.id}`)}>
                             View Details
                         </button>
-
 
                     </div>
                 ))}

@@ -3,12 +3,12 @@ import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
 import Raptor from '../foto/F-22.jpg';
 import Harrier from '../foto/AV-8B.jpg';
-import {fetchProducts1, getProductsBySearch, getProductsByValueDesc} from "../Catalog/productsApi";
+import {fetchProducts2, getProductsBySearch, getProductsByValueDesc} from "../Catalog/productsApi";
 import SortSelect from "../DropdownComponent/SortSelect";
-import { useDispatch } from 'react-redux';
-import { addToCart } from '../Redux/actions';
+import {useDispatch, useSelector} from 'react-redux';
+import {addToCart, updateCart} from '../Redux/actions';
 
-const FullInformation = () => {
+const FullInformation1 = () => {
     const [products, setProducts] = useState([]);
     const [sortCriteria, setSortCriteria] = useState('description');
     const [sortOrder, setSortOrder] = useState('asc');
@@ -17,21 +17,39 @@ const FullInformation = () => {
     const [applySort, setApplySort] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-    const productImages = [Harrier];
+    const productImages = [Raptor];
     const [selectedOption2, setSelectedOption2] = useState("Option 1");
-    const dispatch = useDispatch();
     const [quantity, setQuantity] = useState(1);
     const [isAddedToCart, setIsAddedToCart] = useState(false);
+    const items = useSelector(state => state.cart.items);
+    const dispatch = useDispatch();
+    const [productStates, setProductStates] = useState({});
 
     useEffect(() => {
-        fetchProducts1(setProducts, setSortCriteria, setSortOrder, setSearchText, setIsCountrySelected, location);
+        fetchProducts2(setProducts, setSortCriteria, setSortOrder, setSearchText, setIsCountrySelected, location);
     }, [location.search]);
 
 
     const handleAddToCart = (product) => {
-        dispatch(addToCart({ ...product, price: product.value, quantity }));
-        setIsAddedToCart(true);
+        const existingItem = items.find((item) => item.id === product.id);
+        const productState = productStates[product.id] || { quantity: 1, isAddedToCart: false };
+
+        if (existingItem) {
+            const updatedItems = items.map((item) =>
+                item.id === product.id ? { ...item, quantity: item.quantity + productState.quantity } : item
+            );
+            dispatch(updateCart(updatedItems));
+        } else {
+            dispatch(addToCart({ ...product, price: product.value, quantity: productState.quantity }));
+        }
+
+        // Update the state for the specific product
+        setProductStates({
+            ...productStates,
+            [product.id]: { ...productState, isAddedToCart: true },
+        });
     };
+
 
     const handleSortChange = (criteria) => {
         const newOrder = criteria === sortCriteria ? (sortOrder === 'asc' ? 'desc' : 'asc') : 'asc';
@@ -165,4 +183,4 @@ const FullInformation = () => {
         </div>
     );
 }
-    export default FullInformation;
+export default FullInformation1;

@@ -11,18 +11,20 @@ const Header = ({ onCatalogClick, onHomeClick }) => {
         setShowLogo(true);
         setActiveMenuItem('catalog');
 
-        // Показати лого та навігацію протягом 5 секунд
         setTimeout(() => {
-            // Приховати лого та навігацію після 5 секунд
             setTimeout(() => {
                 setShowLogo(false);
-            }, 5000);
+            }, 1000);
         }, 1000);
     };
 
     const handleHomeClick = () => {
         onHomeClick();
         setActiveMenuItem('home');
+    };
+
+    const handleCartClick = () => {
+        setActiveMenuItem('cart');
     };
 
     const logoStyle = {
@@ -37,7 +39,6 @@ const Header = ({ onCatalogClick, onHomeClick }) => {
 
     return (
         <header className="header">
-            {/* Відображення логотипу затримкою */}
             {showLogo ? (
                 <div className="logo-overlay">
                     <img src={logo} alt="Logo" style={logoStyle1} className="rotate1" />
@@ -52,17 +53,21 @@ const Header = ({ onCatalogClick, onHomeClick }) => {
             )}
             <nav className={`nav ${showLogo ? 'hidden' : ''}`}>
                 <ul>
-                    <li onClick={handleHomeClick} className={activeMenuItem === 'home' ? 'active' : ''}>
-                        <Link to="/" style={{ color: 'white', textDecoration: 'none' }}>
+                    <li onClick={handleHomeClick} className={activeMenuItem === 'home' ? 'active' : ''} style={{  cursor: 'pointer' }}>
+                        <Link to="/" style={{ color: 'white', textDecoration: 'none', width: '100%', height: '100%' }}>
                             Home
                         </Link>
                     </li>
-                    <li onClick={handleCatalogClick} className={activeMenuItem === 'catalog' ? 'active' : ''}>
-                        <Link to="/catalog" style={{ color: 'white', textDecoration: 'none' }}>
+                    <li onClick={handleCatalogClick} className={activeMenuItem === 'catalog' ? 'active' : ''} style={{  cursor: 'pointer' }}>
+                        <Link to="/catalog" style={{ color: 'white', textDecoration: 'none', width: '100%', height: '100%' }}>
                             Catalog
                         </Link>
                     </li>
-                    <li>Cart</li>
+                    <li onClick={handleCartClick} className={activeMenuItem === 'cart' ? 'active' : ''} style={{  cursor: 'pointer' }}>
+                        <Link to="/cart" style={{ color: 'white', textDecoration: 'none', width: '100%', height: '100%' }}>
+                            Cart
+                        </Link>
+                    </li>
                 </ul>
             </nav>
             <div></div>
