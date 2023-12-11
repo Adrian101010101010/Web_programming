@@ -270,9 +270,11 @@ h1{
 .close-button {
   width: 100px;
   height: 50px;
+  color: #2fff59;
   background: #464545;
   border-radius: 50px;
   margin-right: 20px;
+  cursor: pointer;
 }
 
 .Add-button {
@@ -280,6 +282,7 @@ h1{
   height: 50px;
   background: #2fff59;
   border-radius: 50px;
+  cursor: pointer;
 
 }
 .Countable {
@@ -360,4 +363,58 @@ h1{
 .logo-overlay{
   display: flex;
 }
+.cart {
+  display: flex;
+}
+.cart_daun {
+  margin-top: 30px;
+}
 
+h2 {
+  color: #2fff59;
+}
+.button_ {
+  background: #2fff59;
+  width: 35px;
+  height: 95px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.Back_to_Catalog {
+  height: 40px;
+  background: #2fff59;
+  border-radius: 50px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.Continue {
+  height: 40px;
+  background: #2fff59;
+  border-radius: 50px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.add_in_cart{
+  background: #2fff59;
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.away_in_cart {
+  background: #2fff59;
+  height: 30px;
+  width: 30px;
+  margin-left: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.Remove_from_cart{
+  background: #808081;
+  border-radius: 15px;
+  cursor: pointer;
+}

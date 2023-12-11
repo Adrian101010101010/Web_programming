@@ -7,8 +7,15 @@ import TernaryElement from './TernaryElement/TernaryElement';
 import BottomSection from './BottomSection/MiddleSection2';
 import Catalog from './Catalog/Catalog';
 import FullInformation from './FullInformation/FullInformation';
+import Fullnformation1 from "./FullInformation/Fullnformation1";
+import Fullnformation2 from "./FullInformation/Fullnformation2";
 import TernaryRandom from "./RandomData/TernaryRandom";
 import ProductList from "./Catalog/qqqqq";
+import Cart from "./Cart/Cart";
+import { Provider } from 'react-redux';
+import store from './Redux/store';
+import FullInformation1 from "./FullInformation/Fullnformation1";
+import FullInformation2 from "./FullInformation/Fullnformation2";
 function App() {
     const [showCatalog, setShowCatalog] = useState(false);
     const [ternaryElementsCount, setTernaryElementsCount] = useState(1);
@@ -52,6 +59,7 @@ function App() {
     };
 
     return (
+        <Provider store={store}>
         <Router>
             <div className="container">
                 <Header onCatalogClick={handleCatalogClick} onHomeClick={handleHomeClick} />
@@ -75,9 +83,6 @@ function App() {
                         />
                         <Route
                             path="/catalog"
-                          /*  element={
-                                <Catalog onItemViewMoreClick={handleItemViewMoreClick} />
-                            }*/
                             element={
                                 products ? (
                                     <ProductList products={products} />
@@ -92,12 +97,26 @@ function App() {
                                 <FullInformation item={selectedItem} onClose={handleCloseFullInformation} />
                             }
                         />
+                        <Route
+                            path="/item/11"
+                            element={<Fullnformation1 onClose={handleCloseFullInformation} />}
+                        />
+                        <Route
+                            path="/item/12"
+                            element={<Fullnformation2 onClose={handleCloseFullInformation} />}
+                        />
+                        <Route
+                        path="/cart"
+                        element={<Cart/>}
+                        />
                     </Routes>
                 </div>
 
                 <BottomSection />
             </div>
         </Router>
+        </Provider>
+
     );
 }
 
