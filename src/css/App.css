@@ -310,7 +310,104 @@ h1{
     opacity: 1;
   }
 }
+.ssssssss{
+  display: flex;
+}
+.back_to_catalog{
+  background: #2fff59;
+  width: 350px;
+  height: 35px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.centered-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
+.form-container {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.checkoutForm_left {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+.asfdgr{
+  margin-bottom: 100px;
+}
+.checkoutForm_left > div {
+  margin-bottom: 30px;
+}
+
+.checkoutForm_left input {
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 10px;
+  margin-top: 5px;
+}
+
+.checkoutForm_left button {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.checkoutForm_left button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+.checkoutForm_left input {
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 10px;
+  margin-top: 5px;
+}
+/* Додайте ці стилі до вашого CheckoutForm.css файлу */
+
+.checkoutForm_left div > div > div:first-child {
+  margin-bottom: 20px; /* Змініть це значення за потребою */
+
+}
+
+.checkoutForm_left div > div > div:nth-child(2) {
+  margin-bottom: 20px; /* Змініть це значення за потребою */
+}
+.checkoutForm_left > div > div > div:first-child,
+.checkoutForm_left > div > div > div:nth-child(2) {
+  margin-bottom: 20px; /* Змініть це значення за потребою */
+}
+.checkoutForm_left > div > div {
+
+  justify-content: space-between;
+}
+
+#address {
+  width: 347px; /* Змініть це значення за потребою */
+}
+.raightbuttonbutton{
+  background: #2fff59;
+  width:150px;
+  height: 35px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-left: 70px;
+}
+.leftbuttonbutton{
+  background: #fc0742;
+  width:150px;
+  height: 35px;
+  border-radius: 20px;
+  cursor: pointer;
+}
 .loading-circle {
   /* Додайте стилі для вашого кола загрузки */
   border: 4px solid #f3f3f3;

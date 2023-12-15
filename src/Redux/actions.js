@@ -14,12 +14,10 @@ export const removeFromCart = (productId) => {
     };
 };
 
-export const addToCart = (product) => {
-    return {
-        type: 'ADD_TO_CART',
-        payload: product,
-    };
-};
+export const addToCart = (product) => ({
+    type: 'ADD_TO_CART',
+    payload: product,
+});
 
 export const updateCart = (updatedItems) => {
     return {
@@ -33,9 +31,12 @@ export const increaseQuantity = (index, currentQuantity) => ({
     payload: { index, currentQuantity },
 });*/
 
-export const increaseQuantity = (productId) => ({
+// actions.js
+export const increaseQuantity = (index) => ({
     type: 'INCREASE_QUANTITY',
-    payload: {
-        productId,
-    },
+    payload: index,
+});
+export const CLEAR_CART = 'CLEAR_CART';
+export const clearCart = () => ({
+    type: CLEAR_CART,
 });

@@ -2,19 +2,28 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart, decreaseQuantity, increaseQuantity } from '../Redux/actions';
 import { useNavigate } from 'react-router-dom';
+import { clearCart } from '../Redux/actions';
 
 const Cart = () => {
-    const storedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const initialItems = useSelector(state => state.cart.items) || storedItems;
+
     const dispatch = useDispatch();
-    const items = initialItems;
-    const total = items.reduce((total, item) => total + item.price * item.quantity, 0);
     const navigate = useNavigate();
+
+    // Move this line below the useDispatch and useNavigate lines
+    const items = useSelector(state => state.cart.items);
+
+    // Now you can safely use items to calculate total
+    const total = items.reduce((total, item) => total + item.price * item.quantity, 0);
 
     useEffect(() => {
         // Save cart items to local storage whenever items change
         localStorage.setItem('cartItems', JSON.stringify(items));
     }, [items]);
+
+    const handleContinue = () => {
+        dispatch(clearCart());
+        navigate('/checkout');
+    };
 
     const handleRemoveFromCart = (productId) => {
         dispatch(removeFromCart(productId));
@@ -24,13 +33,9 @@ const Cart = () => {
         dispatch(decreaseQuantity(index));
     };
 
-    // In your component where you handle the button click
-    const handleIncreaseQuantity = (productId) => {
-        dispatch(increaseQuantity({ productId }));
+    const handleIncreaseQuantity = (index) => {
+        dispatch(increaseQuantity(index));
     };
-
-
-
 
     const confirmRemoveFromCart = (productId) => {
         const shouldRemove = window.confirm("Are you sure you want to remove this item?");
@@ -39,6 +44,7 @@ const Cart = () => {
             // Additional actions after removal if needed
         }
     };
+
 
     const handleItemClick = (productId) => {
         navigate(`/item/${productId}`);
@@ -71,7 +77,7 @@ const Cart = () => {
                     <h2 style={{ textAlign: 'center' }}>Total: ${total}</h2>
                     <div className={'cart_daun'} style={{ marginTop: '130px', display: 'flex', justifyContent: 'space-between' }}>
                         <button className={'Back_to_Catalog'} onClick={() => console.log('Back to Catalog')}>Back to Catalog</button>
-                        <button className={'Continue'} onClick={() => console.log('Continue')}>Continue</button>
+                        <button className={'Continue'} onClick={handleContinue}>Continue</button>
                     </div>
                 </>
             )}
