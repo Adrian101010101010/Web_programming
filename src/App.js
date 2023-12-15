@@ -14,8 +14,10 @@ import ProductList from "./Catalog/qqqqq";
 import Cart from "./Cart/Cart";
 import { Provider } from 'react-redux';
 import store from './Redux/store';
+import CheckoutForm from "./CheckoutForm/CheckoutForm";
 import FullInformation1 from "./FullInformation/Fullnformation1";
 import FullInformation2 from "./FullInformation/Fullnformation2";
+import SuccessMessage from "./SuccessMessage/SuccessMessage";
 function App() {
     const [showCatalog, setShowCatalog] = useState(false);
     const [ternaryElementsCount, setTernaryElementsCount] = useState(1);
@@ -108,6 +110,13 @@ function App() {
                         <Route
                         path="/cart"
                         element={<Cart/>}
+                        />
+                        <Route
+                            path="/checkout"
+                            element={<CheckoutForm/>}
+                        />
+                        <Route path="/successMessage"
+                               element={<SuccessMessage />}
                         />
                     </Routes>
                 </div>
